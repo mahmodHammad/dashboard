@@ -134,6 +134,14 @@ export default function Sidebar(props) {
           {brand}
           <div className={classes.sidebarWrapper}>
           {/* <Dashboard/> */}
+          <div
+        className={classes.item}
+        draggable={true}
+        unselectable="on"
+        onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+      >
+        Droppable Element (Drag me!)
+      </div>
           </div>
           {image !== undefined ? (
             <div

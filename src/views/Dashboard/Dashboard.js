@@ -60,24 +60,14 @@ export default function Dashboard() {
   var layouts = getLayoutsFromSomewhere();
   const classes = useStyles();
   function onDrop(e) {
+    console.log(e)
     let newBoxes=[...boxes,"4"]
     setboxes(newBoxes)
     console.log("boxes",boxes)
   }
   return (
     <div>
-      <div
-        className="droppable-element"
-        draggable={true}
-        unselectable="on"
-        // this is a hack for firefox
-        // Firefox requires some kind of initialization
-        // which we can do by adding this attribute
-        // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-        onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
-      >
-        Droppable Element (Drag me!)
-      </div>
+ 
       <ResponsiveGridLayout
         autoSize={true}
         className="layout"
