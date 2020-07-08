@@ -6,7 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
-import Dash from "./Dash";
+import Stock from "./Dash";
+import Heat from "./TwoDash";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -24,7 +25,8 @@ const sidebarStyle = (theme) => ({
 const useStyles = makeStyles(sidebarStyle);
 
 const charts = {
-  dragg: <Dash />,
+  heat: <Heat />,
+  stock: <Stock />,
 };
 
 export default function Dashboard() {
@@ -62,11 +64,7 @@ export default function Dashboard() {
   }
 
   function renderComponent(key) {
-    return (
-      <div>
-        {charts[key]}
-      </div>
-    );
+    return <div>{charts[key]}</div>;
   }
 
   return (
@@ -105,36 +103,3 @@ function generateLayout(layout, key) {
     i: key,
   };
 }
-
-const initLayouts = {
-  lg: [
-    { h: 2, w: 4, x: 0, y: 0, i: "1" },
-    { h: 2, w: 2, x: 3, y: 0, i: "2" },
-    { h: 2, w: 2, x: 6, y: 0, i: "3" },
-    { h: 4, w: 4, x: 6, y: 6, i: "test" },
-  ],
-  sm: [
-    { h: 2, w: 4, x: 0, y: 0, i: "1" },
-    { h: 2, w: 2, x: 3, y: 0, i: "2" },
-    { h: 2, w: 2, x: 6, y: 0, i: "3" },
-    { h: 4, w: 4, x: 6, y: 6, i: "test" },
-  ],
-  md: [
-    { h: 2, w: 4, x: 0, y: 0, i: "1" },
-    { h: 2, w: 2, x: 3, y: 0, i: "2" },
-    { h: 2, w: 2, x: 6, y: 0, i: "3" },
-    { h: 4, w: 4, x: 6, y: 6, i: "test" },
-  ],
-  xs: [
-    { h: 2, w: 2, x: 0, y: 0, i: "1" },
-    { h: 2, w: 2, x: 0, y: 1, i: "2" },
-    { h: 2, w: 2, x: 0, y: 2, i: "2" },
-    { h: 4, w: 4, x: 6, y: 6, i: "test" },
-  ],
-  xxs: [
-    { h: 2, w: 2, x: 0, y: 0, i: "1" },
-    { h: 2, w: 2, x: 0, y: 1, i: "2" },
-    { h: 2, w: 2, x: 0, y: 2, i: "3" },
-    { h: 4, w: 4, x: 6, y: 6, i: "test" },
-  ],
-};
