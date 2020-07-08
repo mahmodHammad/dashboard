@@ -9,37 +9,6 @@ import "react-resizable/css/styles.css";
 import Dash from "./Dash";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-const getLayoutsFromSomewhere = () => {
-  var layouts = {
-    lg: [
-      { h: 2, w: 4, x: 0, y: 0, i: "1" },
-      { h: 2, w: 2, x: 3, y: 0, i: "2" },
-      { h: 2, w: 2, x: 6, y: 0, i: "3" },
-      { h: 2, w: 2, x: 6, y: 0, i: "4" },
-    ],
-    sm: [
-      { h: 2, w: 4, x: 0, y: 0, i: "1" },
-      { h: 2, w: 2, x: 3, y: 0, i: "2" },
-      { h: 2, w: 2, x: 6, y: 0, i: "3" },
-    ],
-    md: [
-      { h: 2, w: 4, x: 0, y: 0, i: "1" },
-      { h: 2, w: 2, x: 3, y: 0, i: "2" },
-      { h: 2, w: 2, x: 6, y: 0, i: "3" },
-    ],
-    xs: [
-      { h: 2, w: 2, x: 0, y: 0, i: "1" },
-      { h: 2, w: 2, x: 0, y: 1, i: "2" },
-      { h: 2, w: 2, x: 0, y: 2, i: "2" },
-    ],
-    xxs: [
-      { h: 2, w: 2, x: 0, y: 0, i: "1" },
-      { h: 2, w: 2, x: 0, y: 1, i: "2" },
-      { h: 2, w: 2, x: 0, y: 2, i: "3" },
-    ],
-  };
-  return layouts;
-};
 
 const sidebarStyle = (theme) => ({
   root: {
@@ -56,18 +25,29 @@ const useStyles = makeStyles(sidebarStyle);
 
 export default function Dashboard() {
   const [boxes, setboxes] = useState(["1", "2", "3"]);
-  console.log(boxes);
-  var layouts = getLayoutsFromSomewhere();
+  const [layouts, setlayouts] = useState(initLayouts);
   const classes = useStyles();
+
   function onDrop(e) {
-    console.log(e)
-    let newBoxes=[...boxes,"4"]
-    setboxes(newBoxes)
-    console.log("boxes",boxes)
+    updateLayout(layouts, e);
   }
+
+  const updateLayout = (layouts, newlayout) => {
+    const newla = generateLayout(newlayout, "test");
+    console.log("newla",newla)
+    const beackpoints = Object.keys(layouts);
+    beackpoints.forEach((breakpoint) => {
+      layouts[breakpoint].push(newla);
+    });
+    console.log(layouts);
+    const newBoxes = [...boxes , "test"]
+    setboxes(newBoxes);
+    setlayouts(layouts);
+  };
+
   return (
     <div>
- 
+      {console.log(layouts)}
       <ResponsiveGridLayout
         autoSize={true}
         className="layout"
@@ -79,6 +59,7 @@ export default function Dashboard() {
         rowHeight={200}
         isDroppable={true}
         onDrop={onDrop}
+        measureBeforeMount={false}
       >
         {boxes.map((e) => (
           <div className={classes.item} key={e}>
@@ -89,3 +70,42 @@ export default function Dashboard() {
     </div>
   );
 }
+
+function generateLayout(layout, key) {
+  const { x, y, w, h } = layout;
+  return {
+    x,
+    y,
+    w,
+    h,
+    i: key,
+  };
+}
+
+const initLayouts = {
+  lg: [
+    { h: 2, w: 4, x: 0, y: 0, i: "1" },
+    { h: 2, w: 2, x: 3, y: 0, i: "2" },
+    { h: 2, w: 2, x: 6, y: 0, i: "3" },
+  ],
+  sm: [
+    { h: 2, w: 4, x: 0, y: 0, i: "1" },
+    { h: 2, w: 2, x: 3, y: 0, i: "2" },
+    { h: 2, w: 2, x: 6, y: 0, i: "3" },
+  ],
+  md: [
+    { h: 2, w: 4, x: 0, y: 0, i: "1" },
+    { h: 2, w: 2, x: 3, y: 0, i: "2" },
+    { h: 2, w: 2, x: 6, y: 0, i: "3" },
+  ],
+  xs: [
+    { h: 2, w: 2, x: 0, y: 0, i: "1" },
+    { h: 2, w: 2, x: 0, y: 1, i: "2" },
+    { h: 2, w: 2, x: 0, y: 2, i: "2" },
+  ],
+  xxs: [
+    { h: 2, w: 2, x: 0, y: 0, i: "1" },
+    { h: 2, w: 2, x: 0, y: 1, i: "2" },
+    { h: 2, w: 2, x: 0, y: 2, i: "3" },
+  ],
+};

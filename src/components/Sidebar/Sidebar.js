@@ -16,7 +16,7 @@ import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
-import Dashboard from './../../views/Dashboard/Dashboard';
+import Dashboard from "./../../views/Dashboard/Dashboard";
 
 const useStyles = makeStyles(styles);
 
@@ -46,7 +46,6 @@ export default function Sidebar(props) {
             activeClassName="active"
             key={key}
           >
-               
             <ListItem button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
@@ -54,7 +53,6 @@ export default function Sidebar(props) {
                     [classes.itemIconRTL]: props.rtlActive,
                   })}
                 >
-                  
                   {prop.icon}
                 </Icon>
               ) : (
@@ -75,8 +73,6 @@ export default function Sidebar(props) {
           </NavLink>
         );
       })}
-                
-
     </List>
   );
   var brand = (
@@ -133,15 +129,15 @@ export default function Sidebar(props) {
         >
           {brand}
           <div className={classes.sidebarWrapper}>
-          {/* <Dashboard/> */}
-          <div
-        className={classes.item}
-        draggable={true}
-        unselectable="on"
-        onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
-      >
-        Droppable Element (Drag me!)
-      </div>
+            {/* <Dashboard/> */}
+            <div
+              className={classes.item}
+              draggable={true}
+              unselectable="on"
+              onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+            >
+              Droppable Element (Drag me!)
+            </div>
           </div>
           {image !== undefined ? (
             <div
