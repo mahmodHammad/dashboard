@@ -134,7 +134,8 @@ export default function Sidebar(props) {
               className={classes.item}
               draggable={true}
               unselectable="on"
-              onDragStart={(e) => e.dataTransfer.setData("text/plain", "hello")}
+              id="dragg"
+              onDragStart={(e) => e.dataTransfer.setData('Text/html', e.target.id)}
             >
               Droppable Element (Drag me!)
             </div>

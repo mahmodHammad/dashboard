@@ -29,13 +29,14 @@ export default function Dashboard() {
   ]);
   const classes = useStyles();
   function onDrop(e) {
-    updateLayout(boxes, e);
+    const getTriggeredID = e.e.dataTransfer.getData("text/html")
+     updateLayout(boxes, e , getTriggeredID);
   }
 
-  const updateLayout = (layouts, newlayout) => {
+  const updateLayout = (layouts, newlayout , getTriggeredID) => {
     const pass = (Math.random()*100).toFixed(0)
-    const newla = generateLayout(newlayout, `test${pass}`);
-    let updater = { key: `test${pass}`, layout: newla };
+    const newla = generateLayout(newlayout, `${getTriggeredID}${pass}`);
+    let updater = { key: `${getTriggeredID}${pass}`, layout: newla };
 
     const newBoxes = [...boxes, updater];
     setboxes(newBoxes);
