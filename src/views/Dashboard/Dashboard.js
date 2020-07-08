@@ -3,9 +3,8 @@ import React from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { makeStyles } from "@material-ui/core/styles";
 
-import "react-grid-layout/css/styles.css"
-import "react-resizable/css/styles.css"
-
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -15,19 +14,12 @@ const sidebarStyle = (theme) => ({
     zIndex: 1000,
   },
   item: {
-    // border: "2px solid blue",
-    background:"gray"
+    border: "2px solid gray",
+    background: "#fff",
   },
 });
 const useStyles = makeStyles(sidebarStyle);
 
-const layout = [
-  { i: "a", x: 5, y: 15, w: 1, h: 12, static: true },
-  { i: "b", x: 1, y: 15, w: 3, h: 22, minW: 2, maxW: 4 },
-  { i: "c", x: 4, y: 15, w: 11, h: 12 },
-];
-
-// import Dash from "./Dash";
 export default function Dashboard() {
   const getLayoutsFromSomewhere = () => {
     var layouts = {
