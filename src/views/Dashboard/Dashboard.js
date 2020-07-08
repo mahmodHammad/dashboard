@@ -2,6 +2,11 @@ import React from "react";
 
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { makeStyles } from "@material-ui/core/styles";
+
+import "react-grid-layout/css/styles.css"
+import "react-resizable/css/styles.css"
+
+
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const sidebarStyle = (theme) => ({
@@ -10,7 +15,8 @@ const sidebarStyle = (theme) => ({
     zIndex: 1000,
   },
   item: {
-    border: "2px solid blue",
+    // border: "2px solid blue",
+    background:"gray"
   },
 });
 const useStyles = makeStyles(sidebarStyle);
