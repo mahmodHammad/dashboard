@@ -17,7 +17,6 @@ class App extends Component {
       visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
       data.push({ date: new Date(2018, 0, i), name: "name" + i, value: visits });
     }
-    console.log(data)
 
     chart.data = data;
 
@@ -50,7 +49,7 @@ class App extends Component {
 
   render() {
     return (
-      <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+      <div id="chartdiv" style={{ width: "100%", height: "100%" }}></div>
     );
   }
 }
