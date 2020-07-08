@@ -17,8 +17,6 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
-import Dash from "./Dash.js";
-
 let ps;
 
 const switchRoutes = (
@@ -116,10 +114,6 @@ export default function Admin({ ...rest }) {
         {getRoute() ? (
           <div className={classes.content}>
             <div className={classes.container}>{switchRoutes}</div>
-{/*******************************************************************************/}
-            <Dash />
-{/*******************************************************************************/}
-
           </div>
         ) : (
           <div className={classes.map}>{switchRoutes}</div>
