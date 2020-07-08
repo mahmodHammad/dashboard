@@ -33,8 +33,9 @@ export default function Dashboard() {
   }
 
   const updateLayout = (layouts, newlayout) => {
-    const newla = generateLayout(newlayout, "test");
-    let updater = { key: "test", layout: newla };
+    const pass = (Math.random()*100).toFixed(0)
+    const newla = generateLayout(newlayout, `test${pass}`);
+    let updater = { key: `test${pass}`, layout: newla };
 
     const newBoxes = [...boxes, updater];
     setboxes(newBoxes);
