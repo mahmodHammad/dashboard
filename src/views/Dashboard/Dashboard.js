@@ -16,6 +16,8 @@ const sidebarStyle = (theme) => ({
     border: "1px solid #ccc",
     background: "#f6f6f6",
     zIndex: 1000,
+
+    minHeight: 1000,
   },
   item: {
     border: "1px solid #ddd",
@@ -31,7 +33,7 @@ const charts = {
 
 export default function Dashboard() {
   const [boxes, setboxes] = useState([
-    { key: "testing", layout: { x: 1, y: 0, w: 1, h: 2 } },
+    // { key: "testing", layout: { x: 1, y: 0, w: 1, h: 2 } },
   ]);
   const classes = useStyles();
 
@@ -64,16 +66,15 @@ export default function Dashboard() {
   }
 
   function renderComponent(key) {
-    return <div>{charts[key]}</div>;
+    return charts[key];
   }
 
   return (
     <div>
       <ResponsiveGridLayout
         autoSize={true}
-        className="layout"
+        className={`layout ${classes.root}`}
         compactType="vertical"
-        className={classes.root}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
         cols={{ lg: 4, md: 3, sm: 2, xs: 2, xxs: 1 }}
         rowHeight={200}
