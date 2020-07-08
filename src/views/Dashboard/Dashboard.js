@@ -23,24 +23,51 @@ const sidebarStyle = (theme) => ({
 });
 const useStyles = makeStyles(sidebarStyle);
 
+const charts = {
+  dragg: <Dash />,
+};
+
 export default function Dashboard() {
   const [boxes, setboxes] = useState([
     { key: "testing", layout: { x: 1, y: 0, w: 1, h: 2 } },
   ]);
   const classes = useStyles();
+
   function onDrop(e) {
-    const getTriggeredID = e.e.dataTransfer.getData("text/html")
-     updateLayout(boxes, e , getTriggeredID);
+    const getTriggeredID = e.e.dataTransfer.getData("text/html");
+    const isExist = checkExist(getTriggeredID);
+    console.log("isExist", isExist);
+    if (isExist) return;
+    else {
+      updateLayout(boxes, e, getTriggeredID);
+    }
   }
 
-  const updateLayout = (layouts, newlayout , getTriggeredID) => {
-    const pass = (Math.random()*100).toFixed(0)
-    const newla = generateLayout(newlayout, `${getTriggeredID}${pass}`);
-    let updater = { key: `${getTriggeredID}${pass}`, layout: newla };
+  const updateLayout = (layouts, newlayout, getTriggeredID) => {
+    const newla = generateLayout(newlayout, `${getTriggeredID}`);
+    let updater = { key: `${getTriggeredID}`, layout: newla };
 
     const newBoxes = [...boxes, updater];
     setboxes(newBoxes);
   };
+
+  function checkExist(key) {
+    let isExist = false;
+    boxes.forEach((e) => {
+      if (e.key === key) {
+        isExist = true;
+      }
+    });
+    return isExist;
+  }
+
+  function renderComponent(key) {
+    return (
+      <div>
+        {charts[key]}
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -50,7 +77,7 @@ export default function Dashboard() {
         compactType="vertical"
         className={classes.root}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        cols={{ lg: 6, md: 4, sm: 2, xs: 2, xxs: 2 }}
+        cols={{ lg: 4, md: 3, sm: 2, xs: 2, xxs: 1 }}
         rowHeight={200}
         isDroppable={true}
         onDrop={onDrop}
@@ -60,7 +87,7 @@ export default function Dashboard() {
       >
         {boxes.map((e) => (
           <div className={classes.item} key={e.key} data-grid={e.layout}>
-            {e.key}
+            {renderComponent(e.key)}
           </div>
         ))}
       </ResponsiveGridLayout>
