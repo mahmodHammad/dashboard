@@ -186,7 +186,6 @@ const sidebarStyle = (theme) => ({
     color: whiteColor,
   },
   purple: {
-    // backgroundColor: primaryColor[0],
     ...primaryBoxShadow,
     "&:hover": {
       backgroundColor: primaryColor[0],
@@ -218,8 +217,17 @@ const sidebarStyle = (theme) => ({
   blueActive: {
     backgroundColor: infoColor[0],
   },
+  greenActive: {
+    backgroundColor: successColor[0],
+  },
+  orangeActive: {
+    backgroundColor: warningColor[0],
+  },
+  purpleActive: {
+    backgroundColor: primaryColor[0],
+  },
+
   green: {
-    // backgroundColor: successColor[0],
     // border:`1px solid ${successColor[0]}`,
     boxShadow:
       "0 12px 20px -10px rgba(" +
@@ -292,6 +300,7 @@ const sidebarStyle = (theme) => ({
     width: "400px",
     zIndex: "4",
     overflowScrolling: "touch",
-  },});
+  },
+});
 
 export default sidebarStyle;

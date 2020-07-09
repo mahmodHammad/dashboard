@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
-import {components} from "../../variables/Charts"
+import { components } from "../../variables/Charts";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 const sidebarStyle = (theme) => ({
@@ -44,7 +44,6 @@ export default function Dashboard({ charts, setcharts }) {
     const getTriggeredID = e.e.dataTransfer.getData("text/html");
     const chart = getchart(getTriggeredID);
     const isExist = checkExist(chart);
-    console.log("isExist", isExist);
     if (isExist) return;
     else {
       updateLayout(chart, e, getTriggeredID);
@@ -70,44 +69,35 @@ export default function Dashboard({ charts, setcharts }) {
     chart.active = true;
 
     updateCharts(chart);
-    console.log("newla", newla);
-    console.log("heeeeeeeeeeh", chart);
-    // let updater = { layout: newla };
-
-    // const newBoxes = [...charts, updater];
-    // setboxes(newBoxes);
   };
 
   function getchart(id) {
     let chart = charts.filter((e) => e.id == id)[0];
     return chart;
   }
+
   function checkExist(chart) {
     return chart.active;
   }
-  function renderChart(key) {
-    console.log(charts.filter((c) => c.id === key));
-    return charts.filter((c) => c.id === key)[0].component;
-  }
 
-  function renderComponent(key) {
-    return renderChart(key);
-  }
   function handelremove(id) {
     let chart = getchart(id);
-    chart.active= false
-    updateCharts(chart)
-    console.log("removingggg",chart);
+    chart.active = false;
+    updateCharts(chart);
   }
-  function updateLocalstorage(e){
-    if(e.length){
-      setTimeout(()=>{
-      localStorage.setItem("charts", JSON.stringify(charts));
-      console.log("updaaate",e)
 
-      },100)
+  function updateLocalstorage(e) {
+    let newCharts = [...charts];
+    e.forEach((c) => {
+      newCharts.forEach((cc, i) => {
+        if (c.i === cc.id) {
+          newCharts[i].layout = c;
+        }
+      });
+    });
+    if (e.length) {
+      localStorage.setItem("charts", JSON.stringify(newCharts));
     }
-
   }
 
   return (
