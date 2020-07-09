@@ -19,20 +19,19 @@ const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
   const classes = useStyles();
-  // verifies if routeName is the one active (in browser input)
-  function activeRoute(routeName) {
-    return window.location.href.indexOf(routeName) > -1 ? true : false;
-  }
+
   const { color, logo, image, logoText, routes } = props;
   const charts = [
-    { id: "stock", label: "Stock(DRAG)" },
-    { id: "heat", label: "Heat(DRAG)" },
+    { id: "stock", label: "Stock(DRAG)" ,active:true },
+    { id: "heat", label: "Heat(DRAG)" ,active:false},
+    { id: "hey you", label: "Heat(DRAG)" ,active:false},
+    { id: "yes you", label: "hoh(DRAG)" ,active:true},
   ];
 
   var links = (
     <List className={classes.list}>
       {charts.map((chart) => (
-        <ListItem button  className= {classNames(classes[color] , classes.item)} >
+        <ListItem button  className= {classNames(classes[color] ,chart.active&& classes[color+"Active"] ,  classes.item)} >
           <ListItemText
             primary={chart.label}
             className={classNames(classes.itemText , classes.whiteFont)}
