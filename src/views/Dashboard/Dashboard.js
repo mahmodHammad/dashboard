@@ -20,6 +20,19 @@ const sidebarStyle = (theme) => ({
     border: "1px solid #ddd",
     background: "#fff",
   },
+  remove: {
+    color: "#700",
+    position: "absolute",
+    top: 0,
+    right: 1,
+    width: 0,
+    height: 0,
+    padding: "0px 15px 25px 5px",
+    zIndex: 1000,
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
 });
 const useStyles = makeStyles(sidebarStyle);
 
@@ -44,7 +57,7 @@ export default function Dashboard({ charts, setcharts }) {
         return chart;
       } else return c;
     });
-    setcharts(newCharts)
+    setcharts(newCharts);
     console.log("woowowowo", newCharts);
   }
 
@@ -77,7 +90,12 @@ export default function Dashboard({ charts, setcharts }) {
   function renderComponent(key) {
     return renderChart(key);
   }
-
+  function handelremove(id) {
+    let chart = getchart(id);
+    chart.active= false
+    updateCharts(chart)
+    console.log("removingggg",chart);
+  }
   return (
     <div>
       <ResponsiveGridLayout
@@ -98,6 +116,12 @@ export default function Dashboard({ charts, setcharts }) {
           .map((e) => (
             <div className={classes.item} key={e.id} data-grid={e.layout}>
               {console.log(e.component)}
+              <div
+                className={classes.remove}
+                onClick={() => handelremove(e.id)}
+              >
+                x
+              </div>
               {e.component}
             </div>
           ))}

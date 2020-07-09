@@ -6,7 +6,7 @@ const Charts = [
   {
     id: "stock",
     label: "Stock(DRAG)",
-    active: true,
+    active: false,
     component: <Stock />,
     layout: { x: 1, y: 0, w: 4, h: 2 },
   },

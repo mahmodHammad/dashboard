@@ -215,7 +215,7 @@ const sidebarStyle = (theme) => ({
         ",.2)",
     },
   },
-  blueActive:{
+  blueActive: {
     backgroundColor: infoColor[0],
   },
   green: {
@@ -292,14 +292,6 @@ const sidebarStyle = (theme) => ({
     width: "400px",
     zIndex: "4",
     overflowScrolling: "touch",
-  },
-  activePro: {
-    [theme.breakpoints.up("md")]: {
-      position: "absolute",
-      width: "100%",
-      bottom: "13px",
-    },
-  },
-});
+  },});
 
 export default sidebarStyle;
