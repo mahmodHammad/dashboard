@@ -16,26 +16,9 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
+import DashboardPage from "views/Dashboard/Dashboard.js";
 
 let ps;
-
-const switchRoutes = (
-  <Switch>
-    {routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      }
-      return null;
-    })}
-    <Redirect from="/admin" to="/admin/dashboard" />
-  </Switch>
-);
 
 const useStyles = makeStyles(styles);
 
@@ -110,14 +93,13 @@ export default function Admin({ ...rest }) {
           handleDrawerToggle={handleDrawerToggle}
           {...rest}
         />
-        {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-        {getRoute() ? (
-          <div className={classes.content}>
-            <div className={classes.container}>{switchRoutes}</div>
+
+        <div className={classes.content}>
+          <div className={classes.container}>
+            <DashboardPage />
           </div>
-        ) : (
-          <div className={classes.map}>{switchRoutes}</div>
-        )}
+        </div>
+
         <FixedPlugin
           handleImageClick={handleImageClick}
           handleColorClick={handleColorClick}

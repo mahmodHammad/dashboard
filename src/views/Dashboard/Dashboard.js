@@ -9,7 +9,7 @@ import "react-resizable/css/styles.css";
 import Stock from "./Dash";
 import Heat from "./TwoDash";
 
-import charts from "../../variables/Charts"
+import charts from "../../variables/Charts";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const sidebarStyle = (theme) => ({
@@ -60,10 +60,10 @@ export default function Dashboard() {
     });
     return isExist;
   }
-function renderChart(key){
-  console.log( charts.filter(c=>c.id ===key))
-  return charts.filter(c=>c.id ===key)[0].component
-}
+  function renderChart(key) {
+    console.log(charts.filter((c) => c.id === key));
+    return charts.filter((c) => c.id === key)[0].component;
+  }
 
   function renderComponent(key) {
     return renderChart(key);
@@ -84,9 +84,11 @@ function renderChart(key){
         // onLayoutChange={(e) => console.log(e)}
         // onBreakpointChange={(e) => setbreakpoint(e)}
       >
-        {boxes.map((e) => (
-          <div className={classes.item} key={e.key} data-grid={e.layout}>
-            {renderComponent(e.key)}
+  
+        {charts.map((e) => (
+          <div className={classes.item} key={e.id} data-grid={e.layout}>
+            {console.log(e.component)}
+            {e.component}
           </div>
         ))}
       </ResponsiveGridLayout>
@@ -104,3 +106,10 @@ function generateLayout(layout, key) {
     i: key,
   };
 }
+
+
+      {/* {boxes.map((e) => (
+          <div className={classes.item} key={e.key} data-grid={e.layout}>
+            {renderComponent(e.key)}
+          </div>
+        ))} */}
