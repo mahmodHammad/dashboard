@@ -6,8 +6,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
-const ResponsiveGridLayout = WidthProvider(Responsive);
+import {components} from "../../variables/Charts"
 
+const ResponsiveGridLayout = WidthProvider(Responsive);
 const sidebarStyle = (theme) => ({
   root: {
     border: "1px solid #ccc",
@@ -57,6 +58,8 @@ export default function Dashboard({ charts, setcharts }) {
         return chart;
       } else return c;
     });
+    localStorage.setItem("charts", JSON.stringify(charts));
+
     setcharts(newCharts);
     console.log("woowowowo", newCharts);
   }
@@ -96,6 +99,17 @@ export default function Dashboard({ charts, setcharts }) {
     updateCharts(chart)
     console.log("removingggg",chart);
   }
+  function updateLocalstorage(e){
+    if(e.length){
+      setTimeout(()=>{
+      localStorage.setItem("charts", JSON.stringify(charts));
+      console.log("updaaate",e)
+
+      },100)
+    }
+
+  }
+
   return (
     <div>
       <ResponsiveGridLayout
@@ -108,7 +122,7 @@ export default function Dashboard({ charts, setcharts }) {
         isDroppable={true}
         onDrop={onDrop}
         measureBeforeMount={false}
-        // onLayoutChange={(e) => console.log(e)}
+        onLayoutChange={(e) => updateLocalstorage(e)}
         // onBreakpointChange={(e) => setbreakpoint(e)}
       >
         {charts
@@ -122,7 +136,7 @@ export default function Dashboard({ charts, setcharts }) {
               >
                 x
               </div>
-              {e.component}
+              {components[e.id]}
             </div>
           ))}
       </ResponsiveGridLayout>

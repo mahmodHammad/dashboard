@@ -17,7 +17,7 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 import DashboardPage from "views/Dashboard/Dashboard.js";
-import initCharts from "../variables/Charts";
+import { initCharts } from "../variables/Charts";
 let ps;
 
 const useStyles = makeStyles(styles);
@@ -32,7 +32,7 @@ export default function Admin({ ...rest }) {
   const [color, setColor] = React.useState("blue");
   const [fixedClasses, setFixedClasses] = React.useState("dropdown");
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [charts, setcharts] = React.useState(initCharts);
+  const [charts, setcharts] = React.useState([]);
   const handleImageClick = (image) => {
     setImage(image);
   };
@@ -59,6 +59,15 @@ export default function Admin({ ...rest }) {
   };
   // initialize and destroy the PerfectScrollbar plugin
   React.useEffect(() => {
+    let storedCharts = localStorage.getItem("charts");
+    if (storedCharts!==null) {
+      storedCharts = JSON.parse(storedCharts);
+      setcharts(storedCharts)
+      console.log("storedCharts", storedCharts);
+    } else {
+      localStorage.setItem("charts", JSON.stringify(initCharts));
+    }
+    
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
         suppressScrollX: true,
@@ -74,7 +83,7 @@ export default function Admin({ ...rest }) {
       }
       window.removeEventListener("resize", resizeFunction);
     };
-  }, [mainPanel]);
+  }, []);
 
   return (
     <div className={classes.wrapper}>
