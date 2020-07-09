@@ -6,10 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
-import Stock from "./Dash";
-import Heat from "./TwoDash";
-
-
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const sidebarStyle = (theme) => ({
@@ -27,39 +23,51 @@ const sidebarStyle = (theme) => ({
 });
 const useStyles = makeStyles(sidebarStyle);
 
-export default function Dashboard({charts ,setcharts}) {
-  
-  const [boxes, setboxes] = useState([
-    // { key: "stock", layout: { x: 1, y: 0, w: 1, h: 2 } },
-  ]);
+export default function Dashboard({ charts, setcharts }) {
   const classes = useStyles();
 
   function onDrop(e) {
     const getTriggeredID = e.e.dataTransfer.getData("text/html");
-    const isExist = checkExist(getTriggeredID);
+    const chart = getchart(getTriggeredID);
+    const isExist = checkExist(chart);
     console.log("isExist", isExist);
     if (isExist) return;
     else {
-      updateLayout(boxes, e, getTriggeredID);
+      updateLayout(chart, e, getTriggeredID);
     }
   }
 
-  const updateLayout = (layouts, newlayout, getTriggeredID) => {
-    const newla = generateLayout(newlayout, `${getTriggeredID}`);
-    let updater = { key: `${getTriggeredID}`, layout: newla };
+  function updateCharts(chart) {
+    let newCharts = [...charts];
+    newCharts.map((c) => {
+      if (charts.id === chart.id) {
+        return chart;
+      } else return c;
+    });
+    setcharts(newCharts)
+    console.log("woowowowo", newCharts);
+  }
 
-    const newBoxes = [...boxes, updater];
-    setboxes(newBoxes);
+  const updateLayout = (chart, newlayout, getTriggeredID) => {
+    const newla = generateLayout(chart, newlayout, getTriggeredID);
+    chart.layout = newla;
+    chart.active = true;
+
+    updateCharts(chart);
+    console.log("newla", newla);
+    console.log("heeeeeeeeeeh", chart);
+    // let updater = { layout: newla };
+
+    // const newBoxes = [...charts, updater];
+    // setboxes(newBoxes);
   };
 
-  function checkExist(key) {
-    let isExist = false;
-    boxes.forEach((e) => {
-      if (e.key === key) {
-        isExist = true;
-      }
-    });
-    return isExist;
+  function getchart(id) {
+    let chart = charts.filter((e) => e.id == id)[0];
+    return chart;
+  }
+  function checkExist(chart) {
+    return chart.active;
   }
   function renderChart(key) {
     console.log(charts.filter((c) => c.id === key));
@@ -85,32 +93,27 @@ export default function Dashboard({charts ,setcharts}) {
         // onLayoutChange={(e) => console.log(e)}
         // onBreakpointChange={(e) => setbreakpoint(e)}
       >
-  
-        {charts.filter(c=>c.active).map((e) => (
-          <div className={classes.item} key={e.id} data-grid={e.layout}>
-            {console.log(e.component)}
-            {e.component}
-          </div>
-        ))}
+        {charts
+          .filter((c) => c.active)
+          .map((e) => (
+            <div className={classes.item} key={e.id} data-grid={e.layout}>
+              {console.log(e.component)}
+              {e.component}
+            </div>
+          ))}
       </ResponsiveGridLayout>
     </div>
   );
 }
 
-function generateLayout(layout, key) {
-  const { x, y, w, h } = layout;
+function generateLayout(chart, newlayout) {
+  console.log("charts", chart);
+  const { w, h } = chart.layout;
+  const { x, y } = newlayout;
   return {
     x,
     y,
     w,
     h,
-    i: key,
   };
 }
-
-
-      {/* {boxes.map((e) => (
-          <div className={classes.item} key={e.key} data-grid={e.layout}>
-            {renderComponent(e.key)}
-          </div>
-        ))} */}
