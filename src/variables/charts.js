@@ -1,5 +1,6 @@
-import Stock from "../views/Dashboard/Dash";
+import Human from "../views/Dashboard/Human";
 import Heat from "../views/Dashboard/TwoDash";
+import Tech from "../views/Dashboard/Tech";
 import React from "react";
 
 const initCharts = [
@@ -17,9 +18,9 @@ const initCharts = [
   },
   {
     id: "hey",
-    label: "Heat(DRAG)",
+    label: "Top 5 richest peoples",
     active: false,
-    layout: { x: 1, y: 0, w: 1, h: 1 },
+    layout: { x: 1, y: 0, w: 2, h: 2 },
   },
   {
     id: "yes",
@@ -29,7 +30,7 @@ const initCharts = [
   },
 ];
 
-const components={stock:<Stock /> , heat:<Heat /> ,hey:<h2>Hello</h2> , yes: <h2>who are you</h2>}
+const components={stock:<Human /> , heat:<Heat /> ,hey:<Tech/> , yes: <h2>who are you</h2>}
 
 
 export  {initCharts , components} ;

@@ -62,6 +62,7 @@ export default function Admin({ ...rest }) {
       setcharts(storedCharts);
     } else {
       localStorage.setItem("charts", JSON.stringify(initCharts));
+      setcharts(initCharts);
     }
 
     if (navigator.platform.indexOf("Win") > -1) {

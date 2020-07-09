@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { makeStyles } from "@material-ui/core/styles";
 
-import "react-grid-layout/css/styles.css";
+import "./style.css";
 import "react-resizable/css/styles.css";
 
 import { components } from "../../variables/Charts";
