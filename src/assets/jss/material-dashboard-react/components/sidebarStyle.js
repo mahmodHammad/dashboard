@@ -139,11 +139,11 @@ const sidebarStyle = (theme) => ({
   },
   item: {
     position: "relative",
-    display: "block",
+    // display: "block",
     textDecoration: "none",
     "&:hover,&:focus,&:visited,&": {
       color: whiteColor,
-      cursor:"grab"
+      cursor: "grab",
     },
   },
   itemLink: {
@@ -217,22 +217,19 @@ const sidebarStyle = (theme) => ({
   },
   blueActive: {
     backgroundColor: infoColor[0],
-    "&:hover":{cursor: "no-drop"}
+    "&:hover": { cursor: "no-drop" },
   },
   greenActive: {
     backgroundColor: successColor[0],
-    "&:hover":{cursor: "no-drop"}
-
+    "&:hover": { cursor: "no-drop" },
   },
   orangeActive: {
     backgroundColor: warningColor[0],
-    "&:hover":{cursor: "no-drop"}
-
+    "&:hover": { cursor: "no-drop" },
   },
   purpleActive: {
     backgroundColor: primaryColor[0],
-    "&:hover":{cursor: "no-drop"}
-
+    "&:hover": { cursor: "no-drop" },
   },
 
   green: {
@@ -305,11 +302,19 @@ const sidebarStyle = (theme) => ({
     position: "relative",
     height: "calc(100vh - 75px)",
     overflow: "auto",
-    width: "400px",
+    // width: "200px",
     zIndex: "4",
     overflowScrolling: "touch",
   },
-  
+  sideIcons: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+    background:"#0004",
+    borderRadius:100,
+    // padding:1,
+    float: "right",
+  },
 });
 
 export default sidebarStyle;

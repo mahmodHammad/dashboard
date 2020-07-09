@@ -14,8 +14,11 @@ import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
-import ClearIcon from '@material-ui/icons/Clear';
-import AddIcon from '@material-ui/icons/Add';
+import ClearIcon from "@material-ui/icons/Clear";
+import AddIcon from "@material-ui/icons/Add";
+
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 const useStyles = makeStyles(styles);
 
@@ -27,31 +30,34 @@ export default function Sidebar(props) {
   var links = (
     <List className={classes.list}>
       {charts.map((chart) => (
-        <div
+        <ListItem
+          className={classNames(
+            classes[color],
+            chart.active && classes[color + "Active"],
+            classes.item
+          )}
           draggable={true}
           unselectable="on"
           id={chart.id}
           onDragStart={(e) => e.dataTransfer.setData("Text/html", e.target.id)}
         >
-          <ListItem
-            className={classNames(
-              classes[color],
-              chart.active && classes[color + "Active"],
-              classes.item
-            )}
-          >
-            <ListItemText
-              primary={chart.label}
-              className={classNames(classes.itemText, classes.whiteFont)}
-              disableTypography={true}
-            />{" "}
-            {chart.active?<ClearIcon
+          <ListItemText
+            primary={chart.label}
+            className={classNames(classes.itemText, classes.whiteFont)}
+            disableTypography={true}
+          />{" "}
+          {chart.active ? (
+            <HighlightOffIcon
               onClick={() => console.log("removeYOu")}
-              className="todoRemove"
-            />:<AddIcon onClick={() => console.log("addYou")} />}
-            
-          </ListItem>
-        </div>
+              className={classes.sideIcons}
+            />
+          ) : (
+            <AddCircleOutlineIcon
+              className={classes.sideIcons}
+              onClick={() => console.log("addYou")}
+            />
+          )}
+        </ListItem>
       ))}
 
       {/* {routes.map((prop, key) => {
