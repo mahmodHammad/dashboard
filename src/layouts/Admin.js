@@ -17,7 +17,7 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 import DashboardPage from "views/Dashboard/Dashboard.js";
-
+import initCharts from "../variables/Charts";
 let ps;
 
 const useStyles = makeStyles(styles);
@@ -32,6 +32,7 @@ export default function Admin({ ...rest }) {
   const [color, setColor] = React.useState("blue");
   const [fixedClasses, setFixedClasses] = React.useState("dropdown");
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [charts, setcharts] = React.useState(initCharts);
   const handleImageClick = (image) => {
     setImage(image);
   };
@@ -78,6 +79,7 @@ export default function Admin({ ...rest }) {
   return (
     <div className={classes.wrapper}>
       <Sidebar
+        charts={charts}
         routes={routes}
         logoText={"Your Charts"}
         logo={logo}
@@ -96,7 +98,7 @@ export default function Admin({ ...rest }) {
 
         <div className={classes.content}>
           <div className={classes.container}>
-            <DashboardPage />
+            <DashboardPage charts={charts} setcharts={setcharts} />
           </div>
         </div>
 

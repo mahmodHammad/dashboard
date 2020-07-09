@@ -14,13 +14,12 @@ import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
-import charts from "../../variables/Charts.js"
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
   const classes = useStyles();
 
-  const { color, logo, image, logoText, routes } = props;
+  const { color, logo, image, logoText, routes ,charts} = props;
 
 
   var links = (
