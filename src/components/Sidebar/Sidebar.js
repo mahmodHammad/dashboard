@@ -25,7 +25,7 @@ const useStyles = makeStyles(styles);
 export default function Sidebar(props) {
   const classes = useStyles();
 
-  const { color, logo, image, logoText, routes, charts } = props;
+  const { color, logo, image, logoText, routes, charts , removeChart , addChart } = props;
 
   var links = (
     <List className={classes.list}>
@@ -48,13 +48,13 @@ export default function Sidebar(props) {
           />{" "}
           {chart.active ? (
             <HighlightOffIcon
-              onClick={() => console.log("removeYOu")}
+              onClick={() => removeChart(chart.id)}
               className={classes.sideIcons}
             />
           ) : (
             <AddCircleOutlineIcon
               className={classes.sideIcons}
-              onClick={() => console.log("addYou")}
+              onClick={() => addChart(chart,{x:0,y:0},chart.id)}
             />
           )}
         </ListItem>

@@ -310,8 +310,8 @@ const sidebarStyle = (theme) => ({
     "&:hover": {
       cursor: "pointer",
     },
-    background:"#0004",
-    borderRadius:100,
+    background: "#0004",
+    borderRadius: 100,
     // padding:1,
     float: "right",
   },

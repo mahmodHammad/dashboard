@@ -37,7 +37,7 @@ const sidebarStyle = (theme) => ({
 });
 const useStyles = makeStyles(sidebarStyle);
 
-export default function Dashboard({ charts, setcharts }) {
+export default function Dashboard({ charts , addChart, removeChart}) {
   const classes = useStyles();
 
   function onDrop(e) {
@@ -46,30 +46,12 @@ export default function Dashboard({ charts, setcharts }) {
     const isExist = checkExist(chart);
     if (isExist) return;
     else {
-      updateLayout(chart, e, getTriggeredID);
+      addChart(chart, e, getTriggeredID);
     }
   }
 
-  function updateCharts(chart) {
-    let newCharts = [...charts];
-    newCharts.map((c) => {
-      if (charts.id === chart.id) {
-        return chart;
-      } else return c;
-    });
-    localStorage.setItem("charts", JSON.stringify(charts));
 
-    setcharts(newCharts);
-    console.log("woowowowo", newCharts);
-  }
 
-  const updateLayout = (chart, newlayout, getTriggeredID) => {
-    const newla = generateLayout(chart, newlayout, getTriggeredID);
-    chart.layout = newla;
-    chart.active = true;
-
-    updateCharts(chart);
-  };
 
   function getchart(id) {
     let chart = charts.filter((e) => e.id == id)[0];
@@ -80,11 +62,6 @@ export default function Dashboard({ charts, setcharts }) {
     return chart.active;
   }
 
-  function handelremove(id) {
-    let chart = getchart(id);
-    chart.active = false;
-    updateCharts(chart);
-  }
 
   function updateLocalstorage(e) {
     let newCharts = [...charts];
@@ -122,7 +99,7 @@ export default function Dashboard({ charts, setcharts }) {
               {console.log(e.component)}
               <div
                 className={classes.remove}
-                onClick={() => handelremove(e.id)}
+                onClick={() => removeChart(e.id)}
               >
                 x
               </div>
@@ -132,16 +109,4 @@ export default function Dashboard({ charts, setcharts }) {
       </ResponsiveGridLayout>
     </div>
   );
-}
-
-function generateLayout(chart, newlayout) {
-  console.log("charts", chart);
-  const { w, h } = chart.layout;
-  const { x, y } = newlayout;
-  return {
-    x,
-    y,
-    w,
-    h,
-  };
 }
