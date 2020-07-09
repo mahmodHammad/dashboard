@@ -1,193 +1,157 @@
-import React from "react";
-// react plugin for creating charts
-import ChartistGraph from "react-chartist";
-// @material-ui/core
+import React, { useState } from "react";
+
+import { Responsive, WidthProvider } from "react-grid-layout";
 import { makeStyles } from "@material-ui/core/styles";
-import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
-import Store from "@material-ui/icons/Store";
-import Warning from "@material-ui/icons/Warning";
-import DateRange from "@material-ui/icons/DateRange";
-import LocalOffer from "@material-ui/icons/LocalOffer";
-import Update from "@material-ui/icons/Update";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import AccessTime from "@material-ui/icons/AccessTime";
-import Accessibility from "@material-ui/icons/Accessibility";
 
-// core components
-import GridItem from "components/Grid/GridItem.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import Danger from "components/Typography/Danger.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardIcon from "components/Card/CardIcon.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart,
-} from "variables/charts.js";
+import {components} from "../../variables/Charts"
 
-import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+const ResponsiveGridLayout = WidthProvider(Responsive);
+const sidebarStyle = (theme) => ({
+  root: {
+    border: "1px solid #ccc",
+    background: "#f6f6f6",
+    zIndex: 1000,
 
-const useStyles = makeStyles(styles);
+    minHeight: "calc(100vh - 200px) ",
+  },
+  item: {
+    border: "1px solid #ddd",
+    background: "#fff",
+  },
+  remove: {
+    color: "#700",
+    position: "absolute",
+    top: 0,
+    right: 1,
+    width: 0,
+    height: 0,
+    padding: "0px 15px 25px 5px",
+    zIndex: 1000,
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+});
+const useStyles = makeStyles(sidebarStyle);
 
-export default function Dashboard() {
+export default function Dashboard({ charts, setcharts }) {
   const classes = useStyles();
+
+  function onDrop(e) {
+    const getTriggeredID = e.e.dataTransfer.getData("text/html");
+    const chart = getchart(getTriggeredID);
+    const isExist = checkExist(chart);
+    console.log("isExist", isExist);
+    if (isExist) return;
+    else {
+      updateLayout(chart, e, getTriggeredID);
+    }
+  }
+
+  function updateCharts(chart) {
+    let newCharts = [...charts];
+    newCharts.map((c) => {
+      if (charts.id === chart.id) {
+        return chart;
+      } else return c;
+    });
+    localStorage.setItem("charts", JSON.stringify(charts));
+
+    setcharts(newCharts);
+    console.log("woowowowo", newCharts);
+  }
+
+  const updateLayout = (chart, newlayout, getTriggeredID) => {
+    const newla = generateLayout(chart, newlayout, getTriggeredID);
+    chart.layout = newla;
+    chart.active = true;
+
+    updateCharts(chart);
+    console.log("newla", newla);
+    console.log("heeeeeeeeeeh", chart);
+    // let updater = { layout: newla };
+
+    // const newBoxes = [...charts, updater];
+    // setboxes(newBoxes);
+  };
+
+  function getchart(id) {
+    let chart = charts.filter((e) => e.id == id)[0];
+    return chart;
+  }
+  function checkExist(chart) {
+    return chart.active;
+  }
+  function renderChart(key) {
+    console.log(charts.filter((c) => c.id === key));
+    return charts.filter((c) => c.id === key)[0].component;
+  }
+
+  function renderComponent(key) {
+    return renderChart(key);
+  }
+  function handelremove(id) {
+    let chart = getchart(id);
+    chart.active= false
+    updateCharts(chart)
+    console.log("removingggg",chart);
+  }
+  function updateLocalstorage(e){
+    if(e.length){
+      setTimeout(()=>{
+      localStorage.setItem("charts", JSON.stringify(charts));
+      console.log("updaaate",e)
+
+      },100)
+    }
+
+  }
+
   return (
     <div>
-      <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="warning" stats icon>
-              <CardIcon color="warning">
-                <Icon>content_copy</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>Used Space</p>
-              <h3 className={classes.cardTitle}>
-                49/50 <small>GB</small>
-              </h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <Danger>
-                  <Warning />
-                </Danger>
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  Get more space
-                </a>
+      <ResponsiveGridLayout
+        autoSize={true}
+        className={`layout ${classes.root}`}
+        compactType="vertical"
+        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+        cols={{ lg: 4, md: 3, sm: 2, xs: 2, xxs: 1 }}
+        rowHeight={200}
+        isDroppable={true}
+        onDrop={onDrop}
+        measureBeforeMount={false}
+        onLayoutChange={(e) => updateLocalstorage(e)}
+        // onBreakpointChange={(e) => setbreakpoint(e)}
+      >
+        {charts
+          .filter((c) => c.active)
+          .map((e) => (
+            <div className={classes.item} key={e.id} data-grid={e.layout}>
+              {console.log(e.component)}
+              <div
+                className={classes.remove}
+                onClick={() => handelremove(e.id)}
+              >
+                x
               </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="success" stats icon>
-              <CardIcon color="success">
-                <Store />
-              </CardIcon>
-              <p className={classes.cardCategory}>Revenue</p>
-              <h3 className={classes.cardTitle}>$34,245</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <DateRange />
-                Last 24 Hours
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="danger" stats icon>
-              <CardIcon color="danger">
-                <Icon>info_outline</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>Fixed Issues</p>
-              <h3 className={classes.cardTitle}>75</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <LocalOffer />
-                Tracked from Github
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Accessibility />
-              </CardIcon>
-              <p className={classes.cardCategory}>Followers</p>
-              <h3 className={classes.cardTitle}>+245</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <Update />
-                Just Updated
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-      </GridContainer>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="success">
-              <ChartistGraph
-                className="ct-chart"
-                data={dailySalesChart.data}
-                type="Line"
-                options={dailySalesChart.options}
-                listener={dailySalesChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Daily Sales</h4>
-              <p className={classes.cardCategory}>
-                <span className={classes.successText}>
-                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
-                </span>{" "}
-                increase in today sales.
-              </p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="warning">
-              <ChartistGraph
-                className="ct-chart"
-                data={emailsSubscriptionChart.data}
-                type="Bar"
-                options={emailsSubscriptionChart.options}
-                responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                listener={emailsSubscriptionChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="danger">
-              <ChartistGraph
-                className="ct-chart"
-                data={completedTasksChart.data}
-                type="Line"
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Completed Tasks</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-      </GridContainer>
+              {components[e.id]}
+            </div>
+          ))}
+      </ResponsiveGridLayout>
     </div>
   );
+}
+
+function generateLayout(chart, newlayout) {
+  console.log("charts", chart);
+  const { w, h } = chart.layout;
+  const { x, y } = newlayout;
+  return {
+    x,
+    y,
+    w,
+    h,
+  };
 }

@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import DashboardPage from "views/Dashboard/Dashboard.js";
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";

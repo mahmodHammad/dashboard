@@ -16,28 +16,9 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
-
-import Dash from "./Dash.js";
-
+import DashboardPage from "views/Dashboard/Dashboard.js";
+import { initCharts } from "../variables/Charts";
 let ps;
-
-const switchRoutes = (
-  <Switch>
-    {routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      }
-      return null;
-    })}
-    <Redirect from="/admin" to="/admin/dashboard" />
-  </Switch>
-);
 
 const useStyles = makeStyles(styles);
 
@@ -51,6 +32,7 @@ export default function Admin({ ...rest }) {
   const [color, setColor] = React.useState("blue");
   const [fixedClasses, setFixedClasses] = React.useState("dropdown");
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [charts, setcharts] = React.useState([]);
   const handleImageClick = (image) => {
     setImage(image);
   };
@@ -77,6 +59,15 @@ export default function Admin({ ...rest }) {
   };
   // initialize and destroy the PerfectScrollbar plugin
   React.useEffect(() => {
+    let storedCharts = localStorage.getItem("charts");
+    if (storedCharts!==null) {
+      storedCharts = JSON.parse(storedCharts);
+      setcharts(storedCharts)
+      console.log("storedCharts", storedCharts);
+    } else {
+      localStorage.setItem("charts", JSON.stringify(initCharts));
+    }
+    
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
         suppressScrollX: true,
@@ -92,11 +83,12 @@ export default function Admin({ ...rest }) {
       }
       window.removeEventListener("resize", resizeFunction);
     };
-  }, [mainPanel]);
+  }, []);
 
   return (
     <div className={classes.wrapper}>
       <Sidebar
+        charts={charts}
         routes={routes}
         logoText={"Your Charts"}
         logo={logo}
@@ -112,18 +104,13 @@ export default function Admin({ ...rest }) {
           handleDrawerToggle={handleDrawerToggle}
           {...rest}
         />
-        {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-        {getRoute() ? (
-          <div className={classes.content}>
-            <div className={classes.container}>{switchRoutes}</div>
-{/*******************************************************************************/}
-            <Dash />
-{/*******************************************************************************/}
 
+        <div className={classes.content}>
+          <div className={classes.container}>
+            <DashboardPage charts={charts} setcharts={setcharts} />
           </div>
-        ) : (
-          <div className={classes.map}>{switchRoutes}</div>
-        )}
+        </div>
+
         <FixedPlugin
           handleImageClick={handleImageClick}
           handleColorClick={handleColorClick}
