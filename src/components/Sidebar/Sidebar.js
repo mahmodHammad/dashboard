@@ -14,19 +14,14 @@ import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
-
+import charts from "../../variables/Charts.js"
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
   const classes = useStyles();
 
   const { color, logo, image, logoText, routes } = props;
-  const charts = [
-    { id: "stock", label: "Stock(DRAG)" ,active:true },
-    { id: "heat", label: "Heat(DRAG)" ,active:false},
-    { id: "hey you", label: "Heat(DRAG)" ,active:false},
-    { id: "yes you", label: "hoh(DRAG)" ,active:true},
-  ];
+
 
   var links = (
     <List className={classes.list}>

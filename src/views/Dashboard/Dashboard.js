@@ -9,6 +9,7 @@ import "react-resizable/css/styles.css";
 import Stock from "./Dash";
 import Heat from "./TwoDash";
 
+import charts from "../../variables/Charts"
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const sidebarStyle = (theme) => ({
@@ -26,14 +27,9 @@ const sidebarStyle = (theme) => ({
 });
 const useStyles = makeStyles(sidebarStyle);
 
-const charts = {
-  heat: <Heat />,
-  stock: <Stock />,
-};
-
 export default function Dashboard() {
   const [boxes, setboxes] = useState([
-    // { key: "testing", layout: { x: 1, y: 0, w: 1, h: 2 } },
+    // { key: "stock", layout: { x: 1, y: 0, w: 1, h: 2 } },
   ]);
   const classes = useStyles();
 
@@ -64,9 +60,13 @@ export default function Dashboard() {
     });
     return isExist;
   }
+function renderChart(key){
+  console.log( charts.filter(c=>c.id ===key))
+  return charts.filter(c=>c.id ===key)[0].component
+}
 
   function renderComponent(key) {
-    return charts[key];
+    return renderChart(key);
   }
 
   return (
