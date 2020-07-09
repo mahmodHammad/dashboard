@@ -186,7 +186,7 @@ const sidebarStyle = (theme) => ({
     color: whiteColor,
   },
   purple: {
-    backgroundColor: primaryColor[0],
+    // backgroundColor: primaryColor[0],
     ...primaryBoxShadow,
     "&:hover,&:focus": {
       backgroundColor: primaryColor[0],
@@ -194,7 +194,7 @@ const sidebarStyle = (theme) => ({
     },
   },
   blue: {
-    backgroundColor: infoColor[0],
+    // backgroundColor: infoColor[0],
     boxShadow:
       "0 12px 20px -10px rgba(" +
       hexToRgb(infoColor[0]) +
@@ -216,7 +216,8 @@ const sidebarStyle = (theme) => ({
     },
   },
   green: {
-    backgroundColor: successColor[0],
+    // backgroundColor: successColor[0],
+    // border:`1px solid ${successColor[0]}`,
     boxShadow:
       "0 12px 20px -10px rgba(" +
       hexToRgb(successColor[0]) +
@@ -238,7 +239,7 @@ const sidebarStyle = (theme) => ({
     },
   },
   orange: {
-    backgroundColor: warningColor[0],
+    // backgroundColor: warningColor[0],
     boxShadow:
       "0 12px 20px -10px rgba(" +
       hexToRgb(warningColor[0]) +
@@ -260,7 +261,7 @@ const sidebarStyle = (theme) => ({
     },
   },
   red: {
-    backgroundColor: dangerColor[0],
+    // backgroundColor: dangerColor[0],
     boxShadow:
       "0 12px 20px -10px rgba(" +
       hexToRgb(dangerColor[0]) +

@@ -2,7 +2,6 @@
 import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -10,13 +9,11 @@ import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Icon from "@material-ui/core/Icon";
 // core components
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
-import Dashboard from "./../../views/Dashboard/Dashboard";
 
 const useStyles = makeStyles(styles);
 
@@ -27,9 +24,30 @@ export default function Sidebar(props) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
   const { color, logo, image, logoText, routes } = props;
+  const charts = [
+    { id: "stock", label: "Stock(DRAG)" },
+    { id: "heat", label: "Heat(DRAG)" },
+  ];
+
   var links = (
     <List className={classes.list}>
-      {routes.map((prop, key) => {
+      {charts.map((chart) => (
+        <ListItem button  className= {classNames(classes[color] , classes.item)} >
+          <ListItemText
+            primary={chart.label}
+            className={classNames(classes.itemText , classes.whiteFont)}
+            disableTypography={true}
+            draggable={true}
+            unselectable="on"
+            id={chart.id}
+            onDragStart={(e) =>
+              e.dataTransfer.setData("Text/html", e.target.id)
+            }
+          />
+        </ListItem>
+      ))}
+
+      {/* {routes.map((prop, key) => {
         var listItemClasses;
 
         listItemClasses = classNames({
@@ -39,6 +57,7 @@ export default function Sidebar(props) {
         const whiteFontClasses = classNames({
           [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path),
         });
+
         return (
           <NavLink
             to={prop.layout + prop.path}
@@ -72,7 +91,7 @@ export default function Sidebar(props) {
             </ListItem>
           </NavLink>
         );
-      })}
+      })} */}
     </List>
   );
   var brand = (
@@ -130,24 +149,7 @@ export default function Sidebar(props) {
           {brand}
           <div className={classes.sidebarWrapper}>
             {/* <Dashboard/> */}
-            <div
-              className={classes.item}
-              draggable={true}
-              unselectable="on"
-              id="stock"
-              onDragStart={(e) => e.dataTransfer.setData('Text/html', e.target.id)}
-            >
-              Stock (Drag me!)
-            </div>
-            <div
-              className={classes.item}
-              draggable={true}
-              unselectable="on"
-              id="heat"
-              onDragStart={(e) => e.dataTransfer.setData('Text/html', e.target.id)}
-            >
-             Heat (Drag me!)
-            </div>
+            {links}
           </div>
           {image !== undefined ? (
             <div

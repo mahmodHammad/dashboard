@@ -17,7 +17,7 @@ const sidebarStyle = (theme) => ({
     background: "#f6f6f6",
     zIndex: 1000,
 
-    minHeight: 1000,
+    minHeight: "calc(100vh - 200px) ",
   },
   item: {
     border: "1px solid #ddd",
