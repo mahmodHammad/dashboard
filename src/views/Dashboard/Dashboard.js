@@ -15,7 +15,7 @@ const sidebarStyle = (theme) => ({
     background: "#f6f6f6",
     zIndex: 1000,
 
-    minHeight: "calc(100vh - 200px) ",
+    minHeight: "calc(100vh - 120px) ",
   },
   item: {
     border: "1px solid #ddd",
@@ -97,12 +97,7 @@ export default function Dashboard({ charts , addChart, removeChart}) {
           .map((e) => (
             <div className={classes.item} key={e.id} data-grid={e.layout}>
               {console.log(e.component)}
-              <div
-                className={classes.remove}
-                onClick={() => removeChart(e.id)}
-              >
-                x
-              </div>
+             
               {components[e.id]}
             </div>
           ))}

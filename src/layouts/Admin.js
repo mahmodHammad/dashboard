@@ -138,11 +138,11 @@ export default function Admin({ ...rest }) {
         {...rest}
       />
       <div className={classes.mainPanel} ref={mainPanel}>
-        {/* <Navbar
+        <Navbar
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
           {...rest}
-        /> */}
+        />
 
         <div className={classes.content}>
           <div className={classes.container}>

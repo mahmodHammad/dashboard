@@ -101,7 +101,7 @@ export default function AdminNavbarLinks() {
         </Poppers>
       </div>
       <div className={classes.manager}>
-        <Button
+        {/* <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
           justIcon={window.innerWidth > 959}
           simple={!(window.innerWidth > 959)}
@@ -114,7 +114,7 @@ export default function AdminNavbarLinks() {
           <Hidden mdUp implementation="css">
             <p className={classes.linkText}>Profile</p>
           </Hidden>
-        </Button>
+        </Button> */}
         <Poppers
           open={Boolean(openProfile)}
           anchorEl={openProfile}
@@ -142,7 +142,7 @@ export default function AdminNavbarLinks() {
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
-                      Profile
+                      hell
                     </MenuItem>
                     <MenuItem
                       onClick={handleCloseProfile}

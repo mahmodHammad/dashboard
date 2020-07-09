@@ -231,6 +231,10 @@ const sidebarStyle = (theme) => ({
     backgroundColor: primaryColor[0],
     "&:hover": { cursor: "no-drop" },
   },
+  redActive: {
+    backgroundColor: dangerColor[0],
+    "&:hover": { cursor: "no-drop" },
+  },
 
   green: {
     // border:`1px solid ${successColor[0]}`,
@@ -277,7 +281,6 @@ const sidebarStyle = (theme) => ({
     },
   },
   red: {
-    // backgroundColor: dangerColor[0],
     boxShadow:
       "0 12px 20px -10px rgba(" +
       hexToRgb(dangerColor[0]) +
