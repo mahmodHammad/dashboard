@@ -1,5 +1,4 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -32,7 +31,7 @@ export default function Admin({ ...rest }) {
   const [color, setColor] = React.useState("blue");
   const [fixedClasses, setFixedClasses] = React.useState("dropdown");
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [charts, setcharts] = React.useState([]);
+  const [charts, setcharts] = React.useState([initCharts]);
   const handleImageClick = (image) => {
     setImage(image);
   };
@@ -49,9 +48,7 @@ export default function Admin({ ...rest }) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const getRoute = () => {
-    return window.location.pathname !== "/admin/maps";
-  };
+
   const resizeFunction = () => {
     if (window.innerWidth >= 960) {
       setMobileOpen(false);
@@ -63,7 +60,6 @@ export default function Admin({ ...rest }) {
     if (storedCharts!==null) {
       storedCharts = JSON.parse(storedCharts);
       setcharts(storedCharts)
-      console.log("storedCharts", storedCharts);
     } else {
       localStorage.setItem("charts", JSON.stringify(initCharts));
     }
@@ -90,7 +86,7 @@ export default function Admin({ ...rest }) {
       <Sidebar
         charts={charts}
         routes={routes}
-        logoText={"Your Charts"}
+        logoText={"Your Dashboard"}
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
@@ -99,11 +95,11 @@ export default function Admin({ ...rest }) {
         {...rest}
       />
       <div className={classes.mainPanel} ref={mainPanel}>
-        <Navbar
+        {/* <Navbar
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
           {...rest}
-        />
+        /> */}
 
         <div className={classes.content}>
           <div className={classes.container}>

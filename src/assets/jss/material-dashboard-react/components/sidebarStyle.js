@@ -143,6 +143,7 @@ const sidebarStyle = (theme) => ({
     textDecoration: "none",
     "&:hover,&:focus,&:visited,&": {
       color: whiteColor,
+      cursor:"grab"
     },
   },
   itemLink: {
@@ -216,15 +217,22 @@ const sidebarStyle = (theme) => ({
   },
   blueActive: {
     backgroundColor: infoColor[0],
+    "&:hover":{cursor: "no-drop"}
   },
   greenActive: {
     backgroundColor: successColor[0],
+    "&:hover":{cursor: "no-drop"}
+
   },
   orangeActive: {
     backgroundColor: warningColor[0],
+    "&:hover":{cursor: "no-drop"}
+
   },
   purpleActive: {
     backgroundColor: primaryColor[0],
+    "&:hover":{cursor: "no-drop"}
+
   },
 
   green: {
@@ -301,6 +309,7 @@ const sidebarStyle = (theme) => ({
     zIndex: "4",
     overflowScrolling: "touch",
   },
+  
 });
 
 export default sidebarStyle;

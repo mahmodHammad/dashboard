@@ -14,30 +14,44 @@ import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
+import ClearIcon from '@material-ui/icons/Clear';
+import AddIcon from '@material-ui/icons/Add';
+
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
   const classes = useStyles();
 
-  const { color, logo, image, logoText, routes ,charts} = props;
-
+  const { color, logo, image, logoText, routes, charts } = props;
 
   var links = (
     <List className={classes.list}>
       {charts.map((chart) => (
-        <ListItem button  className= {classNames(classes[color] ,chart.active&& classes[color+"Active"] ,  classes.item)} >
-          <ListItemText
-            primary={chart.label}
-            className={classNames(classes.itemText , classes.whiteFont)}
-            disableTypography={true}
-            draggable={true}
-            unselectable="on"
-            id={chart.id}
-            onDragStart={(e) =>
-              e.dataTransfer.setData("Text/html", e.target.id)
-            }
-          />
-        </ListItem>
+        <div
+          draggable={true}
+          unselectable="on"
+          id={chart.id}
+          onDragStart={(e) => e.dataTransfer.setData("Text/html", e.target.id)}
+        >
+          <ListItem
+            className={classNames(
+              classes[color],
+              chart.active && classes[color + "Active"],
+              classes.item
+            )}
+          >
+            <ListItemText
+              primary={chart.label}
+              className={classNames(classes.itemText, classes.whiteFont)}
+              disableTypography={true}
+            />{" "}
+            {chart.active?<ClearIcon
+              onClick={() => console.log("removeYOu")}
+              className="todoRemove"
+            />:<AddIcon onClick={() => console.log("addYou")} />}
+            
+          </ListItem>
+        </div>
       ))}
 
       {/* {routes.map((prop, key) => {

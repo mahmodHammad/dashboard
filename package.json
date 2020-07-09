@@ -1,9 +1,9 @@
 {
-  "name": "material-dashboard-react",
+  "name": "dashboard",
   "homepage": "https://mahmodhammad.github.io/dashboard",
   "version": "1.9.0",
   "description": "Interactive  Dashboard ",
-  "private": false,
+  "private": true,
   "main": "dist/index.js",
   "dependencies": {
     "@amcharts/amcharts4": "^4.9.28",
@@ -38,15 +38,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/creativetimofficial/material-dashboard-react.git"
+    "url": "git+https://github.com/mahmodHammad/dashboard.git"
   },
   "keywords": [],
-  "author": "Creative Tim <hello@creative-tim.com> (https://www.creative-tim.com/)",
+  "author": "Mahmoud Hammad",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
-  },
-  "homepage": "https://creativetimofficial.github.io/material-dashboard-react/#/dashboard",
   "optionalDependencies": {
     "@types/googlemaps": "3.39.6",
     "@types/markerclustererplus": "2.1.33",
