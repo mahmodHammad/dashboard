@@ -34,6 +34,7 @@ export default function Sidebar(props) {
           className={classNames(
             classes[color],
             chart.active && classes[color + "Active"],
+            chart.hover && classes.hover,
             classes.item
           )}
           draggable={true}

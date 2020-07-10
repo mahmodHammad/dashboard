@@ -12,7 +12,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 const sidebarStyle = (theme) => ({
   root: {
     border: "1px solid #555",
-    borderRadius:4,
+    borderRadius: 4,
     background: "#333",
     zIndex: 1000,
 
@@ -20,8 +20,12 @@ const sidebarStyle = (theme) => ({
   },
   item: {
     border: "1px solid #111",
-    borderRadius:4,
+    borderRadius: 4,
     background: "#222",
+    "&:active": {
+      cursor: "grab",
+      opacity: 0.8,
+    },
   },
   remove: {
     color: "#700",
@@ -39,7 +43,7 @@ const sidebarStyle = (theme) => ({
 });
 const useStyles = makeStyles(sidebarStyle);
 
-export default function Dashboard({ charts , addChart, removeChart}) {
+export default function Dashboard({ charts, addChart, removeChart }) {
   const classes = useStyles();
 
   function onDrop(e) {
@@ -52,9 +56,6 @@ export default function Dashboard({ charts , addChart, removeChart}) {
     }
   }
 
-
-
-
   function getchart(id) {
     let chart = charts.filter((e) => e.id == id)[0];
     return chart;
@@ -63,7 +64,6 @@ export default function Dashboard({ charts , addChart, removeChart}) {
   function checkExist(chart) {
     return chart.active;
   }
-
 
   function updateLocalstorage(e) {
     let newCharts = [...charts];
@@ -79,6 +79,12 @@ export default function Dashboard({ charts , addChart, removeChart}) {
     }
   }
 
+  function handleMouseLeave(e) {
+    console.log("leave", e);
+  }
+  function handleMouseEnter(e) {
+    console.log("enter", e);
+  }
   return (
     <div>
       <ResponsiveGridLayout
@@ -97,9 +103,13 @@ export default function Dashboard({ charts , addChart, removeChart}) {
         {charts
           .filter((c) => c.active)
           .map((e) => (
-            <div className={classes.item} key={e.id} data-grid={e.layout}>
-              {console.log(e.component)}
-             
+            <div
+              onMouseEnter={()=>handleMouseEnter(e.id)}
+              onMouseLeave={()=>handleMouseLeave(e.id)}
+              className={classes.item}
+              key={e.id}
+              data-grid={e.layout}
+            >
               {components[e.id]}
             </div>
           ))}

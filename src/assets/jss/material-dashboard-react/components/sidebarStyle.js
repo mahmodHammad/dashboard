@@ -332,6 +332,10 @@ const sidebarStyle = (theme) => ({
     // padding:1,
     float: "right",
   },
+  hover:{
+    background:"#000",
+    border:" solid 1px #fff"
+  }
 });
 
 export default sidebarStyle;
