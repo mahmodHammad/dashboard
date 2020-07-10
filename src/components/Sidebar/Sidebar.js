@@ -44,7 +44,7 @@ export default function Sidebar(props) {
         >
           <ListItemText
             primary={chart.label}
-            className={classNames(classes.itemText, classes.whiteFont)}
+            className={classNames(classes.itemText )}
             disableTypography={true}
           />{" "}
           {chart.active ? (

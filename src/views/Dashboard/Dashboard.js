@@ -43,7 +43,7 @@ const sidebarStyle = (theme) => ({
 });
 const useStyles = makeStyles(sidebarStyle);
 
-export default function Dashboard({ charts, addChart, removeChart }) {
+export default function Dashboard({ charts, addChart, updateCharts }) {
   const classes = useStyles();
 
   function onDrop(e) {
@@ -80,10 +80,12 @@ export default function Dashboard({ charts, addChart, removeChart }) {
   }
 
   function handleMouseLeave(e) {
-    console.log("leave", e);
+    e.hover = false;
+    updateCharts(e, false);
   }
   function handleMouseEnter(e) {
-    console.log("enter", e);
+    e.hover = true;
+    updateCharts(e, false);
   }
   return (
     <div>
@@ -104,8 +106,8 @@ export default function Dashboard({ charts, addChart, removeChart }) {
           .filter((c) => c.active)
           .map((e) => (
             <div
-              onMouseEnter={()=>handleMouseEnter(e.id)}
-              onMouseLeave={()=>handleMouseLeave(e.id)}
+              onMouseEnter={() => handleMouseEnter(e)}
+              onMouseLeave={() => handleMouseLeave(e)}
               className={classes.item}
               key={e.id}
               data-grid={e.layout}

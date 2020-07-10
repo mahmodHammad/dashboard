@@ -333,8 +333,8 @@ const sidebarStyle = (theme) => ({
     float: "right",
   },
   hover:{
-    background:"#000",
-    border:" solid 1px #fff"
+    transition: "all 0.5s ease",
+    background:"#fff3",
   }
 });
 

@@ -97,7 +97,7 @@ export default function Admin({ ...rest }) {
     chart.layout = newla;
     chart.active = true;
 
-    updateCharts(chart);
+    updateCharts(chart , true);
   };
 
   function handelremove(id) {
@@ -107,17 +107,19 @@ export default function Admin({ ...rest }) {
     }
     let chart = getchart(id);
     chart.active = false;
-    updateCharts(chart);
+    updateCharts(chart , true);
   }
 
-  function updateCharts(chart) {
+  function updateCharts(chart , save) {
     let newCharts = [...charts];
     newCharts.map((c) => {
       if (charts.id === chart.id) {
         return chart;
       } else return c;
     });
-    localStorage.setItem("charts", JSON.stringify(charts));
+    if(save){
+      localStorage.setItem("charts", JSON.stringify(charts)); 
+    }
 
     setcharts(newCharts);
     console.log("woowowowo", newCharts);
@@ -152,6 +154,7 @@ export default function Admin({ ...rest }) {
               setcharts={setcharts}
               removeChart={handelremove}
               addChart={addLayout}
+              updateCharts={updateCharts}
             />
           </div>
         </div>
