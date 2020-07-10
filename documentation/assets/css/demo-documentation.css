@@ -409,6 +409,7 @@ body {
 }
 .components-page .wrapper > .header,
 .tutorial-page .wrapper > .header {
+  background-color: #333;
   height: 400px;
   padding-top: 100px;
   background-size: cover;

@@ -1,94 +1,170 @@
 import React, { Component } from "react";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import am4themes_animated from "@amcharts/amcharts4/themes/dark";
+
 am4core.useTheme(am4themes_animated);
 
-/* Create chart instance */
-
-export default class TwoDash extends Component {
+class App extends Component {
   componentDidMount() {
-    var chart = am4core.create("chart", am4charts.XYChart);
-    chart.paddingRight = 25;
+    let chart = am4core.create("RealTime", am4charts.XYChart);
+    chart.hiddenState.properties.opacity = 0;
 
-    /* Add data */
-    chart.data = [
-      {
-        category: "Research",
-        value: 45,
-        target: 80,
-      },
-      {
-        category: "Marketing",
-        value: 60,
-        target: 75,
-      },
-      {
-        category: "Distribution",
-        value: 92,
-        target: 96,
-      },
-    ];
+    chart.padding(0, 0, 0, 0);
 
-    /* Create axes */
-    var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "category";
-    categoryAxis.renderer.minGridDistance = 30;
-    categoryAxis.renderer.grid.template.disabled = true;
+    chart.zoomOutButton.disabled = true;
 
-    var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
-    valueAxis.renderer.minGridDistance = 30;
-    valueAxis.renderer.grid.template.disabled = true;
-    valueAxis.min = 0;
-    valueAxis.max = 100;
-    valueAxis.strictMinMax = true;
-    valueAxis.renderer.labels.template.adapter.add("text", function (text) {
-      return text + "%";
-    });
+    let data = [];
+    let visits = 10;
+    let i = 0;
 
-    /* Create ranges */
-    function createRange(axis, from, to, color) {
-      var range = axis.axisRanges.create();
-      range.value = from;
-      range.endValue = to;
-      range.axisFill.fill = color;
-      range.axisFill.fillOpacity = 0.8;
-      range.label.disabled = true;
+    for (i = 0; i <= 30; i++) {
+      visits -= Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+      data.push({ date: new Date().setSeconds(i - 30), value: visits });
     }
 
-    createRange(valueAxis, 0, 20, am4core.color("#19d228"));
-    createRange(valueAxis, 20, 40, am4core.color("#b4dd1e"));
-    createRange(valueAxis, 40, 60, am4core.color("#f4fb16"));
-    createRange(valueAxis, 60, 80, am4core.color("#f6d32b"));
-    createRange(valueAxis, 80, 100, am4core.color("#fb7116"));
+    chart.data = data;
 
-    /* Create series */
-    var series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.valueX = "value";
-    series.dataFields.categoryY = "category";
-    series.columns.template.fill = am4core.color("#000");
-    series.columns.template.stroke = am4core.color("#fff");
-    series.columns.template.strokeWidth = 1;
-    series.columns.template.strokeOpacity = 0.5;
-    series.columns.template.height = am4core.percent(25);
+    let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.grid.template.location = 0;
+    dateAxis.renderer.minGridDistance = 30;
+    dateAxis.dateFormats.setKey("second", "ss");
+    dateAxis.periodChangeDateFormats.setKey("second", "[bold]h:mm a");
+    dateAxis.periodChangeDateFormats.setKey("minute", "[bold]h:mm a");
+    dateAxis.periodChangeDateFormats.setKey("hour", "[bold]h:mm a");
+    dateAxis.renderer.inside = true;
+    dateAxis.renderer.axisFills.template.disabled = true;
+    dateAxis.renderer.ticks.template.disabled = true;
 
-    var series2 = chart.series.push(new am4charts.StepLineSeries());
-    series2.dataFields.valueX = "target";
-    series2.dataFields.categoryY = "category";
-    series2.strokeWidth = 3;
-    series2.noRisers = true;
-    series2.startLocation = 0.15;
-    series2.endLocation = 0.85;
-    series2.tooltipText = "{valueX}";
-    series2.stroke = am4core.color("#000");
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.tooltip.disabled = true;
+    valueAxis.interpolationDuration = 500;
+    valueAxis.rangeChangeDuration = 500;
+    valueAxis.renderer.inside = true;
+    valueAxis.renderer.minLabelPosition = 0.05;
+    valueAxis.renderer.maxLabelPosition = 0.95;
+    valueAxis.renderer.axisFills.template.disabled = true;
+    valueAxis.renderer.ticks.template.disabled = true;
 
-    chart.cursor = new am4charts.XYCursor();
-    chart.cursor.lineX.disabled = true;
-    chart.cursor.lineY.disabled = true;
+    let series = chart.series.push(new am4charts.LineSeries());
+    series.dataFields.dateX = "date";
+    series.dataFields.valueY = "value";
+    series.interpolationDuration = 500;
+    series.defaultState.transitionDuration = 0;
+    series.tensionX = 0.8;
 
-    valueAxis.cursorTooltipEnabled = false;
+    chart.events.on("datavalidated", function () {
+      dateAxis.zoom({ start: 1 / 15, end: 1.2 }, false, true);
+    });
+
+    dateAxis.interpolationDuration = 500;
+    dateAxis.rangeChangeDuration = 500;
+
+    document.addEventListener(
+      "visibilitychange",
+      function () {
+        if (document.hidden) {
+          if (interval) {
+            clearInterval(interval);
+          }
+        } else {
+          startInterval();
+        }
+      },
+      false
+    );
+
+    // add data
+    let interval;
+    function startInterval() {
+      interval = setInterval(function () {
+        visits =
+          visits +
+          Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 5);
+        let lastdataItem = series.dataItems.getIndex(
+          series.dataItems.length - 1
+        );
+        chart.addData(
+          {
+            date: new Date(lastdataItem.dateX.getTime() + 1000),
+            value: visits,
+          },
+          1
+        );
+      }, 1000);
+    }
+
+    startInterval();
+
+    // all the below is optional, makes some fancy effects
+    // gradient fill of the series
+    series.fillOpacity = 1;
+    let gradient = new am4core.LinearGradient();
+    gradient.addColor(chart.colors.getIndex(0), 0.2);
+    gradient.addColor(chart.colors.getIndex(0), 0);
+    series.fill = gradient;
+
+    // this makes date axis labels to fade out
+    dateAxis.renderer.labels.template.adapter.add("fillOpacity", function (
+      fillOpacity,
+      target
+    ) {
+      let dataItem = target.dataItem;
+      return dataItem.position;
+    });
+
+    // need to set this, otherwise fillOpacity is not changed and not set
+    dateAxis.events.on("validated", function () {
+      am4core.iter.each(dateAxis.renderer.labels.iterator(), function (label) {
+        label.fillOpacity = label.fillOpacity;
+      });
+    });
+
+    // this makes date axis labels which are at equal minutes to be rotated
+    dateAxis.renderer.labels.template.adapter.add("rotation", function (
+      rotation,
+      target
+    ) {
+      let dataItem = target.dataItem;
+      if (
+        dataItem.date &&
+        dataItem.date.getTime() ==
+          am4core.time
+            .round(new Date(dataItem.date.getTime()), "minute")
+            .getTime()
+      ) {
+        target.verticalCenter = "middle";
+        target.horizontalCenter = "left";
+        return -90;
+      } else {
+        target.verticalCenter = "bottom";
+        target.horizontalCenter = "middle";
+        return 0;
+      }
+    });
+
+    // bullet at the front of the line
+    let bullet = series.createChild(am4charts.CircleBullet);
+    bullet.circle.radius = 5;
+    bullet.fillOpacity = 1;
+    bullet.fill = chart.colors.getIndex(0);
+    bullet.isMeasured = false;
+
+    series.events.on("validated", function () {
+      bullet.moveTo(series.dataItems.last.point);
+      bullet.validatePosition();
+    });
   }
+
+  componentWillUnmount() {
+    if (this.chart) {
+      this.chart.dispose();
+    }
+  }
+
   render() {
-    return <div id="chart" style={{ width: "100%", height: "100%" }}></div>;
+    return <div id="RealTime" style={{ width: "100%", height: "100%" }}></div>;
   }
 }
+
+export default App;

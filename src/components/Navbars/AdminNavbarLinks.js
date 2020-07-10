@@ -7,13 +7,9 @@ import MenuList from "@material-ui/core/MenuList";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Hidden from "@material-ui/core/Hidden";
 import Poppers from "@material-ui/core/Popper";
 import Divider from "@material-ui/core/Divider";
 // @material-ui/icons
-import Person from "@material-ui/icons/Person";
-// core components
-import Button from "components/CustomButtons/Button.js";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 
@@ -26,13 +22,6 @@ export default function AdminNavbarLinks() {
 
   const handleCloseNotification = () => {
     setOpenNotification(null);
-  };
-  const handleClickProfile = (event) => {
-    if (openProfile && openProfile.contains(event.target)) {
-      setOpenProfile(null);
-    } else {
-      setOpenProfile(event.currentTarget);
-    }
   };
   const handleCloseProfile = () => {
     setOpenProfile(null);
@@ -101,7 +90,7 @@ export default function AdminNavbarLinks() {
         </Poppers>
       </div>
       <div className={classes.manager}>
-        <Button
+        {/* <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
           justIcon={window.innerWidth > 959}
           simple={!(window.innerWidth > 959)}
@@ -114,7 +103,7 @@ export default function AdminNavbarLinks() {
           <Hidden mdUp implementation="css">
             <p className={classes.linkText}>Profile</p>
           </Hidden>
-        </Button>
+        </Button> */}
         <Poppers
           open={Boolean(openProfile)}
           anchorEl={openProfile}
@@ -142,7 +131,7 @@ export default function AdminNavbarLinks() {
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
-                      Profile
+                      hell
                     </MenuItem>
                     <MenuItem
                       onClick={handleCloseProfile}

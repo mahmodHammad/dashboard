@@ -6,6 +6,7 @@ import {
 
 const appStyle = theme => ({
   wrapper: {
+    background: "#252525",
     position: "relative",
     top: "0",
     height: "100vh"
@@ -25,11 +26,11 @@ const appStyle = theme => ({
   content: {
     marginTop: "70px",
     padding: "30px 15px",
-    minHeight: "calc(100vh - 123px)"
+    // minHeight: "calc(100vh - 123px)"
   },
-  container,
-  map: {
-    marginTop: "70px"
+  container: {
+    ...container,
+    marginTop: "-40px"
   }
 });
 

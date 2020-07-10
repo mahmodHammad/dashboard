@@ -1,5 +1,4 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -29,10 +28,10 @@ export default function Admin({ ...rest }) {
   const mainPanel = React.createRef();
   // states and functions
   const [image, setImage] = React.useState(bgImage);
-  const [color, setColor] = React.useState("blue");
+  const [color, setColor] = React.useState("red");
   const [fixedClasses, setFixedClasses] = React.useState("dropdown");
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [charts, setcharts] = React.useState([]);
+  const [charts, setcharts] = React.useState([initCharts]);
   const handleImageClick = (image) => {
     setImage(image);
   };
@@ -49,9 +48,7 @@ export default function Admin({ ...rest }) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const getRoute = () => {
-    return window.location.pathname !== "/admin/maps";
-  };
+
   const resizeFunction = () => {
     if (window.innerWidth >= 960) {
       setMobileOpen(false);
@@ -60,14 +57,14 @@ export default function Admin({ ...rest }) {
   // initialize and destroy the PerfectScrollbar plugin
   React.useEffect(() => {
     let storedCharts = localStorage.getItem("charts");
-    if (storedCharts!==null) {
+    if (storedCharts !== null) {
       storedCharts = JSON.parse(storedCharts);
-      setcharts(storedCharts)
-      console.log("storedCharts", storedCharts);
+      setcharts(storedCharts);
     } else {
       localStorage.setItem("charts", JSON.stringify(initCharts));
+      setcharts(initCharts);
     }
-    
+
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
         suppressScrollX: true,
@@ -85,17 +82,60 @@ export default function Admin({ ...rest }) {
     };
   }, []);
 
+  const addLayout = (chart, newlayout) => {
+    function generateLayout(chart, newlayout) {
+      const { w, h } = chart.layout;
+      const { x, y } = newlayout;
+      return {
+        x,
+        y,
+        w,
+        h,
+      };
+    }
+    const newla = generateLayout(chart, newlayout, chart.id);
+    chart.layout = newla;
+    chart.active = true;
+
+    updateCharts(chart);
+  };
+
+  function handelremove(id) {
+    function getchart(id) {
+      let chart = charts.filter((e) => e.id == id)[0];
+      return chart;
+    }
+    let chart = getchart(id);
+    chart.active = false;
+    updateCharts(chart);
+  }
+
+  function updateCharts(chart) {
+    let newCharts = [...charts];
+    newCharts.map((c) => {
+      if (charts.id === chart.id) {
+        return chart;
+      } else return c;
+    });
+    localStorage.setItem("charts", JSON.stringify(charts));
+
+    setcharts(newCharts);
+    console.log("woowowowo", newCharts);
+  }
+
   return (
     <div className={classes.wrapper}>
       <Sidebar
         charts={charts}
         routes={routes}
-        logoText={"Your Charts"}
+        logoText={"Your Dashboard"}
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
         color={color}
+        removeChart={handelremove}
+        addChart={addLayout}
         {...rest}
       />
       <div className={classes.mainPanel} ref={mainPanel}>
@@ -107,7 +147,12 @@ export default function Admin({ ...rest }) {
 
         <div className={classes.content}>
           <div className={classes.container}>
-            <DashboardPage charts={charts} setcharts={setcharts} />
+            <DashboardPage
+              charts={charts}
+              setcharts={setcharts}
+              removeChart={handelremove}
+              addChart={addLayout}
+            />
           </div>
         </div>
 

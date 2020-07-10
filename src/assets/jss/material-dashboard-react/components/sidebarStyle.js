@@ -138,11 +138,17 @@ const sidebarStyle = (theme) => ({
     position: "unset",
   },
   item: {
+    marginTop:12,
+    marginBottom:12,
+    paddingTop:15,
+    paddingBottom:15,
+
     position: "relative",
-    display: "block",
+    // display: "block",
     textDecoration: "none",
     "&:hover,&:focus,&:visited,&": {
       color: whiteColor,
+      cursor: "grab",
     },
   },
   itemLink: {
@@ -186,8 +192,9 @@ const sidebarStyle = (theme) => ({
     color: whiteColor,
   },
   purple: {
-    // backgroundColor: primaryColor[0],
     ...primaryBoxShadow,
+    transition: "all 0.3s ease",
+
     "&:hover": {
       backgroundColor: primaryColor[0],
       ...primaryBoxShadow,
@@ -196,17 +203,18 @@ const sidebarStyle = (theme) => ({
   blue: {
     // backgroundColor: infoColor[0],
     boxShadow:
-      "0 12px 20px -10px rgba(" +
+      "0 0 20px -3px  rgba(" +
       hexToRgb(infoColor[0]) +
       ",.28), 0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.12), 0 7px 8px -5px rgba(" +
       hexToRgb(infoColor[0]) +
       ",.2)",
+      transition: "all 0.3s ease",
     "&:hover": {
       backgroundColor: infoColor[0],
       boxShadow:
-        "0 12px 20px -10px rgba(" +
+        "0 0 20px -3px  rgba(" +
         hexToRgb(infoColor[0]) +
         ",.28), 0 4px 20px 0 rgba(" +
         hexToRgb(blackColor) +
@@ -217,22 +225,41 @@ const sidebarStyle = (theme) => ({
   },
   blueActive: {
     backgroundColor: infoColor[0],
+    "&:hover": { cursor: "no-drop" },
   },
+  greenActive: {
+    backgroundColor: successColor[0],
+    "&:hover": { cursor: "no-drop" },
+  },
+  orangeActive: {
+    backgroundColor: warningColor[0],
+    "&:hover": { cursor: "no-drop" },
+  },
+  purpleActive: {
+    backgroundColor: primaryColor[0],
+    "&:hover": { cursor: "no-drop" },
+  },
+  redActive: {
+    backgroundColor: dangerColor[0],
+    "&:hover": { cursor: "no-drop" },
+  },
+
   green: {
-    // backgroundColor: successColor[0],
     // border:`1px solid ${successColor[0]}`,
     boxShadow:
-      "0 12px 20px -10px rgba(" +
+      "0 0 20px -3px  rgba(" +
       hexToRgb(successColor[0]) +
       ",.28), 0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.12), 0 7px 8px -5px rgba(" +
       hexToRgb(successColor[0]) +
       ",.2)",
+      transition: "all 0.3s ease",
+      
     "&:hover": {
       backgroundColor: successColor[0],
       boxShadow:
-        "0 12px 20px -10px rgba(" +
+        "0 0 20px -3px  rgba(" +
         hexToRgb(successColor[0]) +
         ",.28), 0 4px 20px 0 rgba(" +
         hexToRgb(blackColor) +
@@ -244,13 +271,15 @@ const sidebarStyle = (theme) => ({
   orange: {
     // backgroundColor: warningColor[0],
     boxShadow:
-      "0 12px 20px -10px rgba(" +
+      "0 0 20px -3px rgba(" +
       hexToRgb(warningColor[0]) +
       ",.28), 0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.12), 0 7px 8px -5px rgba(" +
       hexToRgb(warningColor[0]) +
       ",.2)",
+      transition: "all 0.3s ease",
+
     "&:hover": {
       backgroundColor: warningColor[0],
       boxShadow:
@@ -264,19 +293,20 @@ const sidebarStyle = (theme) => ({
     },
   },
   red: {
-    // backgroundColor: dangerColor[0],
     boxShadow:
-      "0 12px 20px -10px rgba(" +
+      "0 0 20px -3px rgba(" +
       hexToRgb(dangerColor[0]) +
       ",.28), 0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.12), 0 7px 8px -5px rgba(" +
       hexToRgb(dangerColor[0]) +
       ",.2)",
+      transition: "all 0.3s ease",
+
     "&:hover": {
       backgroundColor: dangerColor[0],
       boxShadow:
-        "0 12px 20px -10px rgba(" +
+        "0 0 20px -3px  rgba(" +
         hexToRgb(dangerColor[0]) +
         ",.28), 0 4px 20px 0 rgba(" +
         hexToRgb(blackColor) +
@@ -289,9 +319,19 @@ const sidebarStyle = (theme) => ({
     position: "relative",
     height: "calc(100vh - 75px)",
     overflow: "auto",
-    width: "400px",
+    // width: "200px",
     zIndex: "4",
     overflowScrolling: "touch",
-  },});
+  },
+  sideIcons: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+    background: "#0004",
+    borderRadius: 100,
+    // padding:1,
+    float: "right",
+  },
+});
 
 export default sidebarStyle;
