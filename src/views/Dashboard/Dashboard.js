@@ -11,15 +11,17 @@ import { components } from "../../variables/Charts";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 const sidebarStyle = (theme) => ({
   root: {
-    border: "1px solid #ccc",
-    background: "#f6f6f6",
+    border: "1px solid #555",
+    borderRadius:4,
+    background: "#333",
     zIndex: 1000,
 
     minHeight: "calc(100vh - 120px) ",
   },
   item: {
-    border: "1px solid #ddd",
-    background: "#fff",
+    border: "1px solid #111",
+    borderRadius:4,
+    background: "#222",
   },
   remove: {
     color: "#700",

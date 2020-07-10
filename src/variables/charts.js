@@ -4,12 +4,21 @@ import Tech from "../views/Dashboard/Tech";
 import Building from "../views/Dashboard/Building";
 import Stocks from "../views/Dashboard/Stocks";
 import Demo from "../views/Dashboard/Demo";
+import PI from "../views/Dashboard/PI";
+import Clock from "../views/Dashboard/Clock";
+import RealStock from "../views/Dashboard/RealStock";
 import React from "react";
 
 const initCharts = [
   {
     id: "stock",
-    label: "Human Body",
+    label: "Human Body composition ",
+    active: false,
+    layout: { x: 1, y: 0, w: 2, h: 2 },
+  },
+  {
+    id: "realstock",
+    label: "Stock chart candlesticks",
     active: false,
     layout: { x: 1, y: 0, w: 2, h: 2 },
   },
@@ -41,7 +50,19 @@ const initCharts = [
     id: "demo",
     label: "Demographics",
     active: true,
-    layout: { x: 0, y: 0, w: 1, h: 3},
+    layout: { x: 0, y: 0, w: 1, h: 3 },
+  },
+  {
+    id: "exchanges",
+    label: "Egypt's imports",
+    active: true,
+    layout: { x: 0, y: 0, w: 2, h: 3 },
+  },
+  {
+    id: "clocker",
+    label: "Classical Clock",
+    active: true,
+    layout: { x: 0, y: 0, w: 1, h: 2 },
   },
 ];
 
@@ -51,8 +72,10 @@ const components = {
   hey: <Tech />,
   yes: <Building />,
   stocker: <Stocks />,
-  demo:<Demo/>
-  
+  demo: <Demo />,
+  exchanges: <PI />,
+  clocker:<Clock/>,
+  realstock:<RealStock/>
 };
 
 export { initCharts, components };

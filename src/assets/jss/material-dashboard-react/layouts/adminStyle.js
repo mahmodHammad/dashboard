@@ -6,6 +6,7 @@ import {
 
 const appStyle = theme => ({
   wrapper: {
+    background: "#252525",
     position: "relative",
     top: "0",
     height: "100vh"
