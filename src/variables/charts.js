@@ -20,7 +20,7 @@ const initCharts = [
     id: "realstock",
     label: "Egypt's exports",
     active: true,
-    layout: { x: 0, y: 0, w: 2, h: 2 },
+    layout: { x: 0, y: 0, w: 2, h: 3 },
   },
   {
     id: "heat",
@@ -37,8 +37,8 @@ const initCharts = [
   {
     id: "exchanges",
     label: "Egypt's imports",
-    active: false,
-    layout: { x: 0, y: 0, w: 2, h: 3 },
+    active: true,
+    layout: { x: 2, y: 0, w: 2, h: 3 },
   },
   {
     id: "yes",
@@ -61,7 +61,7 @@ const initCharts = [
   {
     id: "clocker",
     label: "Classical Clock",
-    active: true,
+    active: false,
     layout: { x: 0, y: 0, w: 1, h: 2 },
   },
 ];
