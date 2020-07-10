@@ -15,33 +15,22 @@ class App extends Component {
 
     chart.data = [
       {
-        name: "The first",
-        value: 354,
+        name: "water",
+        value: 64,
       },
       {
-        name: "The second",
-        value: 245,
+        name: "Protein",
+        value: 20,
       },
       {
-        name: "The third",
-        value: 187,
+        name: "Fat",
+        value: 10,
       },
       {
-        name: "The fourth",
-        value: 123,
-      },
-      {
-        name: "The fifth",
-        value: 87,
-      },
-      {
-        name: "The sixth",
-        value: 45,
-      },
-      {
-        name: "The seventh",
-        value: 23,
-      },
+        name: "Minerals",
+        value: 5,
+      }
+      
     ];
 
     var series = chart.series.push(new am4charts.PictorialStackedSeries());
