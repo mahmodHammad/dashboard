@@ -18,9 +18,9 @@ const initCharts = [
   },
   {
     id: "realstock",
-    label: "Stock chart candlesticks",
-    active: false,
-    layout: { x: 1, y: 0, w: 2, h: 2 },
+    label: "Egypt's exports",
+    active: true,
+    layout: { x: 0, y: 0, w: 2, h: 2 },
   },
   {
     id: "heat",
@@ -35,28 +35,28 @@ const initCharts = [
     layout: { x: 1, y: 0, w: 2, h: 2 },
   },
   {
+    id: "exchanges",
+    label: "Egypt's imports",
+    active: false,
+    layout: { x: 0, y: 0, w: 2, h: 3 },
+  },
+  {
     id: "yes",
     label: "Highest Buildings",
-    active: true,
+    active: false,
     layout: { x: 2, y: 0, w: 1, h: 2 },
   },
   {
     id: "stocker",
     label: "company’s capital",
-    active: true,
+    active: false,
     layout: { x: 1, y: 0, w: 1, h: 2 },
   },
   {
     id: "demo",
     label: "Demographics",
-    active: true,
+    active: false,
     layout: { x: 0, y: 0, w: 1, h: 3 },
-  },
-  {
-    id: "exchanges",
-    label: "Egypt's imports",
-    active: true,
-    layout: { x: 0, y: 0, w: 2, h: 3 },
   },
   {
     id: "clocker",

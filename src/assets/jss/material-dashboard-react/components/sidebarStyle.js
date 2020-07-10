@@ -138,6 +138,11 @@ const sidebarStyle = (theme) => ({
     position: "unset",
   },
   item: {
+    marginTop:12,
+    marginBottom:12,
+    paddingTop:15,
+    paddingBottom:15,
+
     position: "relative",
     // display: "block",
     textDecoration: "none",
@@ -188,6 +193,8 @@ const sidebarStyle = (theme) => ({
   },
   purple: {
     ...primaryBoxShadow,
+    transition: "all 0.3s ease",
+
     "&:hover": {
       backgroundColor: primaryColor[0],
       ...primaryBoxShadow,
@@ -196,17 +203,18 @@ const sidebarStyle = (theme) => ({
   blue: {
     // backgroundColor: infoColor[0],
     boxShadow:
-      "0 12px 20px -10px rgba(" +
+      "0 0 20px -3px  rgba(" +
       hexToRgb(infoColor[0]) +
       ",.28), 0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.12), 0 7px 8px -5px rgba(" +
       hexToRgb(infoColor[0]) +
       ",.2)",
+      transition: "all 0.3s ease",
     "&:hover": {
       backgroundColor: infoColor[0],
       boxShadow:
-        "0 12px 20px -10px rgba(" +
+        "0 0 20px -3px  rgba(" +
         hexToRgb(infoColor[0]) +
         ",.28), 0 4px 20px 0 rgba(" +
         hexToRgb(blackColor) +
@@ -239,17 +247,19 @@ const sidebarStyle = (theme) => ({
   green: {
     // border:`1px solid ${successColor[0]}`,
     boxShadow:
-      "0 12px 20px -10px rgba(" +
+      "0 0 20px -3px  rgba(" +
       hexToRgb(successColor[0]) +
       ",.28), 0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.12), 0 7px 8px -5px rgba(" +
       hexToRgb(successColor[0]) +
       ",.2)",
+      transition: "all 0.3s ease",
+      
     "&:hover": {
       backgroundColor: successColor[0],
       boxShadow:
-        "0 12px 20px -10px rgba(" +
+        "0 0 20px -3px  rgba(" +
         hexToRgb(successColor[0]) +
         ",.28), 0 4px 20px 0 rgba(" +
         hexToRgb(blackColor) +
@@ -261,13 +271,15 @@ const sidebarStyle = (theme) => ({
   orange: {
     // backgroundColor: warningColor[0],
     boxShadow:
-      "0 12px 20px -10px rgba(" +
+      "0 0 20px -3px rgba(" +
       hexToRgb(warningColor[0]) +
       ",.28), 0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.12), 0 7px 8px -5px rgba(" +
       hexToRgb(warningColor[0]) +
       ",.2)",
+      transition: "all 0.3s ease",
+
     "&:hover": {
       backgroundColor: warningColor[0],
       boxShadow:
@@ -282,17 +294,19 @@ const sidebarStyle = (theme) => ({
   },
   red: {
     boxShadow:
-      "0 12px 20px -10px rgba(" +
+      "0 0 20px -3px rgba(" +
       hexToRgb(dangerColor[0]) +
       ",.28), 0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.12), 0 7px 8px -5px rgba(" +
       hexToRgb(dangerColor[0]) +
       ",.2)",
+      transition: "all 0.3s ease",
+
     "&:hover": {
       backgroundColor: dangerColor[0],
       boxShadow:
-        "0 12px 20px -10px rgba(" +
+        "0 0 20px -3px  rgba(" +
         hexToRgb(dangerColor[0]) +
         ",.28), 0 4px 20px 0 rgba(" +
         hexToRgb(blackColor) +

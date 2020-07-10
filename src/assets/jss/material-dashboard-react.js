@@ -106,7 +106,7 @@ const boxShadow = {
 
 const primaryBoxShadow = {
   boxShadow:
-    "0 4px 20px 0 rgba(" +
+  "0 0 20px -3px rgba(" +
     hexToRgb(blackColor) +
     ",.14), 0 7px 10px -5px rgba(" +
     hexToRgb(primaryColor[0]) +
