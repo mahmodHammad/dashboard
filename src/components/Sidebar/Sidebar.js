@@ -34,6 +34,7 @@ export default function Sidebar(props) {
           className={classNames(
             classes[color],
             chart.active && classes[color + "Active"],
+            chart.hover && classes.hover,
             classes.item
           )}
           draggable={true}
@@ -43,7 +44,7 @@ export default function Sidebar(props) {
         >
           <ListItemText
             primary={chart.label}
-            className={classNames(classes.itemText, classes.whiteFont)}
+            className={classNames(classes.itemText )}
             disableTypography={true}
           />{" "}
           {chart.active ? (
